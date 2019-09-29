@@ -6,11 +6,12 @@ const container = dependable.container();
 const simpleDep = [
     ['_', 'lodash'],
     ['passport', 'passport'],
+
 ];
 
 simpleDep.forEach(function(dep) {
     container.register(dep[0], function() {
-        return dep[1]
+        return require(dep[1]);
     })
 })
 
