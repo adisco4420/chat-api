@@ -4,7 +4,8 @@ const path = require('path');
 const container = dependable.container();
 
 const simpleDep = [
-    ['_', 'lodash']
+    ['_', 'lodash'],
+    ['passport', 'passport'],
 ];
 
 simpleDep.forEach(function(dep) {
