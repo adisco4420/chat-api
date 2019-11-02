@@ -25,7 +25,10 @@ passport.use('local.signup', new LocalStrategy({
            return done(err);
        }
         if(user){
-            return done(null, false, req.flash('error', 'User with email already exist'));
+            return done(null, false, 
+                req.flash('error', 'User with email already exist')
+                // res.status(403).json({status: 'error', messages: 'User with email already exist'})
+                );
         }
         
         const newUser = new User();

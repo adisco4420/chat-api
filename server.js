@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000
 const container = require('./container');
 
 
-container.resolve(function(user) {
+container.resolve(function(user, _) {
     const app = setExpress()
     mongoose.set('useFindAndModify', false);
     mongoose.set('useCreateIndex', true);
@@ -56,6 +56,8 @@ container.resolve(function(user) {
 
         app.use(passport.initialize());
         app.use(passport.session());
+
+        app.locals._ = _;
     }
 })
 

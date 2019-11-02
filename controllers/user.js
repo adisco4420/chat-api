@@ -7,11 +7,10 @@ module.exports = function(_, passport, User) {
             router.get('/signup', this.getSignUp);
             router.get('/home', this.homePage)
 
-            router.post('/', this.postLogin);
-            router.post('/signup', this.postSignUp);
+            router.post('/', User.loginValidation, this.postLogin);
+            router.post('/signup', User.signupValidation, this.postSignUp);
         },
         indexPage: function(req, res){
-            console.log(passport);
             const errors = req.flash('error');
             return res.render('index', {title: 'Footballkk | Login', messages: errors, hasErrors: errors.length > 0});
         },
