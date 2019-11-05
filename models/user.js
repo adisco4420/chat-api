@@ -11,7 +11,6 @@ const userSchema = mongoose.Schema({
     facebook: {type: String, default: ''},
     fbTokens: Array,
     google: {type: String, default: ''},
-    googleTokens: Array,
     sentRequest: [{
         username: {type: String, default: ''}
     }],
