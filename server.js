@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000
 const container = require('./container');
 
 
-container.resolve(function(user, _) {
+container.resolve(function(user, _, admin, home, group) {
     const app = setExpress()
     mongoose.set('useFindAndModify', false);
     mongoose.set('useCreateIndex', true);
@@ -29,7 +29,10 @@ container.resolve(function(user, _) {
         ConfigureExpress(app)
         // Setup Routing
         const router = require('express-promise-router')();
-        user.setRouting(router);
+        user.SetRouting(router);        
+        admin.SetRouting(router);
+        home.SetRouting(router);
+        group.SetRouting(router)
         app.use(router);
     }
 

@@ -6,7 +6,10 @@ const container = dependable.container();
 const simpleDep = [
     ['_', 'lodash'],
     ['passport', 'passport'],
-
+    ['formidable', 'formidable'],
+    ['async', 'async'],
+    ['Club', './models/clubs'],
+    ['Users', './models/user'],
 ];
 
 simpleDep.forEach(function(dep) {

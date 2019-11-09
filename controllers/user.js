@@ -2,10 +2,10 @@
 module.exports = function(_, passport, User) {
     
     return {
-        setRouting: function(router) {
+        SetRouting: function(router) {
             router.get('/', this.indexPage)
             router.get('/signup', this.getSignUp);
-            router.get('/home', this.homePage)
+      
             router.get('/auth/facebook', this.getFacebookLogin);
             router.get('/auth/facebook/callback', this.facebookLogin);
             router.get('/auth/google', this.getGoogleLogin);
