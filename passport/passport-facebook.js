@@ -24,7 +24,11 @@ passport.use(new FacebookStrategy({
     
 }, (req, token, refreshToken, profile, done) => {
     
-    User.findOne({facebook:profile.id}, (err, user) => {
+    User.findOne({ $or : [
+        {facebook:profile.id},
+        {email: profile._json.email}
+    ]},
+        (err, user) => {
        if(err){
            return done(err);
        }

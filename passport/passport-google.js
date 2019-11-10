@@ -22,7 +22,11 @@ passport.use(new GoogleStrategy({
     passReqToCallback: true
     
 }, (req, accessToken, refreshToken, profile, done) => {
-    User.findOne({google:profile.id}, (err, user) => {
+    User.findOne({ $or: [
+        {google:profile.id},
+        {email: profile.emails[0].value}
+    ]}, 
+        (err, user) => {
         if(err){
            return done(err);
         }
@@ -30,8 +34,6 @@ passport.use(new GoogleStrategy({
         if(user){
             return done(null, user);
         }else{
-            console.log(profile);
-            
             const newUser = new User();
             newUser.google = profile.id;
             newUser.fullname = profile.displayName;
