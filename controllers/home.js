@@ -1,14 +1,12 @@
 
-module.exports = function(async, Club, _){
+module.exports = function(async, Club, _, Users){
     return {
         SetRouting: function(router){
             router.get('/home', this.homePage);
-            // router.post('/home', this.postHomePage);
+            router.post('/home', this.postHomePage);
             
             router.get('/logout', this.logout);
         },
-
-        
         homePage: function(req, res){
             async.parallel([
                 function(callback){
@@ -26,13 +24,13 @@ module.exports = function(async, Club, _){
                     });
                 },
                 
-                // function(callback){
-                //     Users.findOne({'username': req.user.username})
-                //         .populate('request.userId')
-                //         .exec((err, result) => {
-                //             callback(err, result);
-                //         })
-                // },
+                function(callback){
+                    Users.findOne({'username': req.user.username})
+                        .populate('request.userId')
+                        .exec((err, result) => {
+                            callback(err, result);
+                        })
+                },
                 
                 // function(callback){
                 //     const nameRegex = new RegExp("^" + req.user.username.toLowerCase(), "i")
@@ -70,6 +68,8 @@ module.exports = function(async, Club, _){
             ], (err, results) => {
                 const res1 = results[0];
                 const res2 = results[1];
+                const res3 = results[2]
+                
                 // const res3 = results[2];
                 // const res4 = results[3];
                 
@@ -81,31 +81,36 @@ module.exports = function(async, Club, _){
                 
                 const country = _.sortBy(res2, '_id');
                 
-                res.render('home', {title: 'Footballkik - Home',  data:res1, country});
+                res.render('home', {
+                    title: 'Footballkik - Home',  
+                    clubs:res1, 
+                    country,
+                    data: res3,
+                    user: req.user});
             })
         },
 
-        // postHomePage: function(req, res){
-        //     async.parallel([
-        //         function(callback){
-        //             Club.update({
-        //                 '_id':req.body.id,
-        //                 'fans.username': {$ne: req.user.username}
-        //             }, {
-        //                 $push: {fans: {
-        //                     username: req.user.username,
-        //                     email: req.user.email
-        //                 }}
-        //             }, (err, count) => {
-        //                 callback(err, count);
-        //             });
-        //         },
-        //     ], (err, results) => {
-        //         res.redirect('/home');
-        //     });
+        postHomePage: function(req, res){
+            async.parallel([
+                function(callback){
+                    Club.update({
+                        '_id':req.body.id,
+                        'fans.username': {$ne: req.user.username}
+                    }, {
+                        $push: {fans: {
+                            username: req.user.username,
+                            email: req.user.email
+                        }}
+                    }, (err, count) => {
+                        callback(err, count);
+                    });
+                },
+            ], (err, results) => {
+                res.redirect('/home');
+            });
             
-        //     FriendResult.PostRequest(req, res, '/home');
-        // },
+            // FriendResult.PostRequest(req, res, '/home');
+        },
         
         logout: function(req, res){
             req.logout();

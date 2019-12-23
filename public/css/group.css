@@ -6,7 +6,9 @@ body {
     background: #eeeeee;
 }
 
-
+.icon-circle{
+    margin-right: 5px;
+}
 h1 {
     font-size: 38px;
     color: #5C5C5B;

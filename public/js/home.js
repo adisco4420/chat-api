@@ -13,7 +13,8 @@ $(document).ready(function(){
                 id: id,
                 clubName: clubName
             },
-            success: function(){
+            success: function(){  
+                alert('Mark As Favourite')
                 //console.log(clubName);
             }
         })

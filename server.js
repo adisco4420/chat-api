@@ -11,9 +11,12 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const PORT = process.env.PORT || 3000
 const container = require('./container');
+const socketIo = require('socket.io')
+const { Users } = require('./helpers/UserClass');
+const { Global } = require('./helpers/Global')
 
 
-container.resolve(function(user, _, admin, home, group) {
+container.resolve(function(user, _, admin, home, group, result) {
     const app = setExpress()
     mongoose.set('useFindAndModify', false);
     mongoose.set('useCreateIndex', true);
@@ -23,16 +26,25 @@ container.resolve(function(user, _, admin, home, group) {
     function setExpress(){
         const app = express()
         const server = http.createServer(app)
+        const io = socketIo(server);
         server.listen(PORT, () => {
             console.log(`App listening on port ${PORT}!`);
         });
         ConfigureExpress(app)
+        //Socket Connection
+        require('./socket/groupchat')(io, Users);
+        require('./socket/sendrequest')(io);
+        require('./socket/globalroom')(io, Global);
+
+
+
         // Setup Routing
         const router = require('express-promise-router')();
         user.SetRouting(router);        
         admin.SetRouting(router);
         home.SetRouting(router);
-        group.SetRouting(router)
+        group.SetRouting(router);
+        result.SetRouting(router);
         app.use(router);
     }
 

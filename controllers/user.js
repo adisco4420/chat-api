@@ -15,7 +15,7 @@ module.exports = function(_, passport, User) {
             router.post('/signup', User.signupValidation, this.postSignUp);
         },
         indexPage: function(req, res){
-            const errors = req.flash('error');
+            const errors = req.flash('error');            
             return res.render('index', {title: 'Footballkk | Login', messages: errors, hasErrors: errors.length > 0});
         },
         postLogin: passport.authenticate('local.login', {
