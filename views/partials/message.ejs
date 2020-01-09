@@ -35,7 +35,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <p class="text-center">
-                           <img src="https://footballkik.s3.amazonaws.com/<%= val.body.sender.userImage %>" class="img-circle img-responsive dropdown-img" />
+                           <img src="<%= val.body.sender.userImage %>" class="img-circle img-responsive dropdown-img" />
                         </p>
                     </div>
                     <div class="col-md-9 pleft-0">
@@ -43,8 +43,8 @@
                             <div class="col-md-12 textRow">
                                 <div class="col-md-12" id="textRow">
                                     <p class="text-left drop-name">
-                                        <% if(user.username !== val.body.receiverName) {%>
-                                            <strong><%= val.body.receiverName %></strong>
+                                        <% if(user.username !== val.body.recieverName) {%>
+                                            <strong><%= val.body.recieverName %></strong>
                                         <% } else { %>
                                             <strong><%= val.body.senderName %></strong>
                                         <% } %>
@@ -58,11 +58,11 @@
                 </div>
                 </a>
                 <% } else if(user.username === val.body.senderName){ %>
-                <a data-value="<%= val.body._id %>" id="messageLink" href="/chat/<%= _.lowerCase(val.body.receiverName) %>.<%= _.lowerCase(user.username) %>">
+                <a data-value="<%= val.body._id %>" id="messageLink" href="/chat/<%= _.lowerCase(val.body.recieverName) %>.<%= _.lowerCase(user.username) %>">
                 <div class="row">
                     <div class="col-md-3">
                         <p class="text-center">
-                           <img src="https://footballkik.s3.amazonaws.com/<%= val.body.receiver.userImage %>" class="img-circle img-responsive dropdown-img" />
+                           <img src="https://recap-project.eu/wp-content/uploads/2017/02/default-user.jpg" class="img-circle img-responsive dropdown-img" />
                         </p>
                     </div>
                     <div class="col-md-9 pleft-0">
@@ -70,8 +70,8 @@
                             <div class="col-md-12 textRow">
                                 <div class="col-md-12" id="textRow">
                                     <p class="text-left drop-name">
-                                        <% if(user.username !== val.body.receiverName) {%>
-                                            <strong><%= val.body.receiverName %></strong>
+                                        <% if(user.username !== val.body.recieverName) {%>
+                                            <strong><%= val.body.recieverName %></strong>
                                         <% } else { %>
                                             <strong><%= val.body.senderName %></strong>
                                         <% } %>

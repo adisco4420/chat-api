@@ -10,6 +10,7 @@ const simpleDep = [
     ['async', 'async'],
     ['Club', './models/clubs'],
     ['Users', './models/user'],
+    ['Messages', './models/message.js']
 ];
 
 simpleDep.forEach(function(dep) {

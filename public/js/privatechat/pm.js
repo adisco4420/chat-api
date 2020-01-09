@@ -1,7 +1,7 @@
 $(document).ready(function(){
     var socket = io();
     
-    var paramOne = $.deparam(window.location.pathname);
+    var paramOne = window.location.pathname.split('/')[2];
     var newParam = paramOne.split('.');
     
     var username = newParam[0];
@@ -31,7 +31,8 @@ $(document).ready(function(){
         var template = $('#message-template').html();
         var message = Mustache.render(template, {
             text: data.text,
-            sender: data.sender
+            sender: data.sender,
+            userImage: 'https://recap-project.eu/wp-content/uploads/2017/02/default-user.jpg'
         });
         
         $('#messages').append(message);

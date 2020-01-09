@@ -4,7 +4,6 @@ module.exports = function(io, Global) {
         console.log('Joined Global Room');
         socket.on('global room', (data) => {
             socket.join(data.room)
-            console.log(data);
             
             global.EnterRoom(socket.id, data.name, data.room, data.img)
 

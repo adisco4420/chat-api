@@ -16,7 +16,7 @@ const { Users } = require('./helpers/UserClass');
 const { Global } = require('./helpers/Global')
 
 
-container.resolve(function(user, _, admin, home, group, result) {
+container.resolve(function(user, _, admin, home, group, result, privatechat) {
     const app = setExpress()
     mongoose.set('useFindAndModify', false);
     mongoose.set('useCreateIndex', true);
@@ -35,6 +35,7 @@ container.resolve(function(user, _, admin, home, group, result) {
         require('./socket/groupchat')(io, Users);
         require('./socket/sendrequest')(io);
         require('./socket/globalroom')(io, Global);
+        require('./socket/privatechat')(io)
 
 
 
@@ -45,6 +46,7 @@ container.resolve(function(user, _, admin, home, group, result) {
         home.SetRouting(router);
         group.SetRouting(router);
         result.SetRouting(router);
+        privatechat.SetRouting(router);
         app.use(router);
     }
 
